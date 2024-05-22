@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Service App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<!-- CSS -->
+<style>
+    body {
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
+    .container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 30px;
+        border: 2px solid rgb(69, 3, 3);
+        border-radius: 5px;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        margin-top: 10px;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+        width: 100%;
+        height: 60px;
+        padding: 8px;
+        margin-top: 5px;
+        border: 2px solid black;
+        border-radius: 5px;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        background-color: rgb(69, 3, 3);
+        color:white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    button:active {
+        background-color: #004080;
+    }
+    *{
+        background-image: url();
+    }
+    #soni{
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        background-color: rgb(69, 3, 3);
+        color:white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    #soni:hover {
+        background-color: #0056b3;
+    }
+
+   #soni:active {
+        background-color: #004080;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h1>GO R!DE</h1>
+        <h1>Vehicle Service Request</h1>
+        <form id="serviceForm">
+            <label for="location">Your Location:</label>
+            <input type="text" id="location" name="location" placeholder="Enter your location">
+            <button type="button" onclick="getLocation()">Get My Location</button>
+            <label for="serviceType">Service Type:</label>
+            <select id="serviceType" name="serviceType">
+                <option value="Oil Change">Oil Change</option>
+                <option value="Tire Rotation">Tyre Rotation</option>
+                <option value="Repair"> Engine Repair</option>
+                <option value="Repair">Starting Problem</option>
+                <option value="Repair">Puncture</option>
+                <option value="Repair">Gear Problem</option>
+                <option value="Repair">Light Problem</option>
+                <option value="Repair">All Service</option>
+                <option value="Repair">Other</option>
+            </select>
+            <label for="notes">Additional Notes:</label>
+            <textarea id="notes" name="notes" placeholder="Enter any additional notes"></textarea>
+            <!-- <link rel="script" href="vendor.html"><button>submit Request</button> -->
+            <a href="vendor.html" id="soni">Submit request</a>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+<!-- JS CODE -->
+<script>
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    }
+
+    function showPosition(position) {
+         const locationInput = document.getElementById('location');
+        locationInput.value = "Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude;
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        document.getElementById('location').innerHTML = 'Lattitude' + latitude + '<br>Longtitude' + longitude;
+    }
+
+    document.getElementById('serviceForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const location = formData.get('location');
+        const serviceType = formData.get('serviceType');
+        const notes = formData.get('notes');
+        console.log("Location: " + location);
+        console.log("Service Type: " + serviceType);
+        console.log("Additional Notes: " + notes);
+        // Add code to submit the form data to a backend server for processing
+    });
+</script>
